@@ -1,0 +1,130 @@
+version: "0.1"
+user: ""
+key: ""
+testSuites: []
+pre: ["curl --location 'https://test-manager-api.lambdatest.com/api/atm/v1/code/183252/hard-assertion'                                 --header 'Content-Type: application/json'                                 --header 'Authorization: Basic cml6d2FuYXFidXJzdDpMVF9Hbnc2ZE1zSWlOWDlCWlZ0d1hDSmVSWEhJV1dQTEVHckczVk92ZFpyZWZvOVFiRQ=='                                 --data '{\"path\":\"01K9T433342KQKBQEFGY30KD7X/81b2ac98-9b9a-42b1-af8b-93d8450d84b9/1/selenium/python/hye_Login_to_SauceDemo_TC-73/operations_meta_data.json\"}'\n                            ", pip3 install -r requirements.txt --target CacheDir, pwd, mkdir -p /home/ltuser/foreman/ltuser, 'wget -O /home/ltuser/foreman/ltuser/dom-watcher.crx ''https://auteurartefactsprod.blob.core.windows.net/auteur-artefacts/prod/dom-watcher.crx?se=2025-11-13T07%3A17%3A47Z&sp=r&sv=2024-05-04&sr=b&sig=KjBgAjSBz3MBoaPY6YboMhFq4B%2BwJcwP%2BjCYu0sQ6Qw%3D''', 'wget -O /home/ltuser/scripts/martian ''https://auteurartefactsprod.blob.core.windows.net/auteur-artefacts/prod/martian/linux/martian?se=2025-11-13T07%3A17%3A47Z&sp=r&sv=2024-05-04&sr=b&sig=RSwkIjQxpXrJdL/9jkZsClBJdaTs91gp4uWpRjy/Ly4%3D''', chmod +x /home/ltuser/scripts/martian]
+preDirectives:
+    commands: []
+    maxRetries: 0
+    shell: ""
+    workingDirectory: ""
+postDirectives:
+    commands: []
+    maxRetries: 0
+    shell: ""
+    workingDirectory: ""
+env:
+    ACCESSIBILITY: "false"
+    API_BASE_DOMAIN: https://api.lambdatest.com
+    ATMS_URL: https://test-manager-api.lambdatest.com
+    AUTOMIND_URL: https://kaneai-api.lambdatest.com
+    CACHE_DIR: CacheDir
+    COMMIT_ID: a7c5b0e112296a70dddf722bbb6d41bb
+    EXTENSION: /home/ltuser/foreman/ltuser/dom-watcher.crx
+    GEO_LOCATION: ""
+    HYE_HUB: hub.lambdatest.com
+    LRMAA_BASE_URL: https://mobile-api.lambdatest.com
+    ORG_ID: "2772087"
+    PROJECT_NAME: KaneAI Generated
+    PYTHONUNBUFFERED: "1"
+    REQUEST_ID: "2772087"
+    SMARTUI_CLIENT_API_URL: https://api.lambdatest.com/visualui/1.0
+    TEST_ID: 81b2ac98-9b9a-42b1-af8b-93d8450d84b9
+    TEST_NAME: Login to SauceDemo
+jobLabel:
+    - KaneAI-Code-Export-Validation
+    - selenium
+    - python
+    - eastus
+    - 81b2ac98-9b9a-42b1-af8b-93d8450d84b9
+runson: linux
+autosplit: true
+concurrency: 1
+testDiscovery:
+    type: raw
+    mode: dynamic
+    command: ls | grep test.py
+testRunnerCommand: PYTHONPATH="$(pwd)/$CACHE_DIR:$PYTHONPATH" python3 $test
+globalTimeout: 90
+testSuiteTimeout: 90
+testSuiteStep: 90
+cacheDirectories:
+    - CacheDir
+cacheKey: '{{ checksum "requirements.txt" }}'
+retryOnFailure: true
+maxRetries: 1
+runtime:
+    - language: python
+      version: "3.11"
+      addons: []
+      opts: {}
+      proxy:
+        url: ""
+        bypasshosts: []
+framework:
+    name: ""
+    flags: []
+    discoveryFlags: []
+    discoveryMode: ""
+    discoveryType: ""
+    runnerFlags: []
+    workingDirectory: ""
+    isTestNGXMLSuite: false
+    defaultReports: true
+    additional_args: null
+    licenseKey: ""
+    userdefinediscovery: false
+    toscaArgs: null
+    version: ""
+    downloadURL: ""
+    baseCommand: ""
+cypress: false
+triggerSource: kaneAI
+combineTasksInMatrixMode: false
+captureScreenRecordingForScenarios: false
+maxRetriesPreSteps: 0
+triggerMode: false
+sourcePayload:
+    platform: projectLink
+    link: https://auteurartefactsprod.blob.core.windows.net/code-export/01K9T433342KQKBQEFGY30KD7X/81b2ac98-9b9a-42b1-af8b-93d8450d84b9/1/selenium/python/hye_Login_to_SauceDemo_TC-73/?st=2025-11-13T06%3A17%3A47Z&se=2025-11-14T06%3A17%3A47Z&sp=rl&sv=2024-05-04&sr=c&sig=PENpnsE3itP5hplSqt91jv2hEB823ntnoC9nbBQnlNQ%3D
+collectLocalGitData: false
+dynamicAllocation: false
+appium: null
+platformConfig: null
+differentialUpload: null
+project:
+    id: 01K9PAZF93Z828KNJC9D03RGC0
+    name: LambdaTest Default Project
+    type: ""
+meta: {}
+regionConfig:
+    vm:
+        - region: eastus
+          platform: ""
+          os: linux
+          queueName: ""
+    storage:
+        region: ""
+        enabled: false
+        name: ""
+        platform: ""
+alwaysRunPostSteps: false
+errorCategorizedOnFailureOnly: false
+storageType: ""
+localHTTPProxy: ""
+waitForArtefactsUpload: false
+unzipPayload: false
+accessibilityJob: false
+whiteLabelProductTag: ""
+jmeter: []
+max_vusers_per_vm: null
+retry: false
+projecttestdiscoveryresult: []
+parentjobnumber: 0
+originalMatrix: {}
+ltOptions: {}
+report: true
+partialReports:
+ location: target/surefire-reports/html
+ type: html
+ frameworkName: extent
