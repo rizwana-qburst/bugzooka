@@ -2,7 +2,29 @@ version: "0.1"
 user: ""
 key: ""
 testSuites: []
-pre: ["curl --location 'https://test-manager-api.lambdatest.com/api/atm/v1/code/183252/hard-assertion'                                 --header 'Content-Type: application/json'                                 --header 'Authorization: Basic cml6d2FuYXFidXJzdDpMVF9Hbnc2ZE1zSWlOWDlCWlZ0d1hDSmVSWEhJV1dQTEVHckczVk92ZFpyZWZvOVFiRQ=='                                 --data '{\"path\":\"01K9T433342KQKBQEFGY30KD7X/81b2ac98-9b9a-42b1-af8b-93d8450d84b9/1/selenium/python/hye_Login_to_SauceDemo_TC-73/operations_meta_data.json\"}'\n                            ", pip3 install -r requirements.txt --target CacheDir, pwd, mkdir -p /home/ltuser/foreman/ltuser, 'wget -O /home/ltuser/foreman/ltuser/dom-watcher.crx ''https://auteurartefactsprod.blob.core.windows.net/auteur-artefacts/prod/dom-watcher.crx?se=2025-11-13T07%3A17%3A47Z&sp=r&sv=2024-05-04&sr=b&sig=KjBgAjSBz3MBoaPY6YboMhFq4B%2BwJcwP%2BjCYu0sQ6Qw%3D''', 'wget -O /home/ltuser/scripts/martian ''https://auteurartefactsprod.blob.core.windows.net/auteur-artefacts/prod/martian/linux/martian?se=2025-11-13T07%3A17%3A47Z&sp=r&sv=2024-05-04&sr=b&sig=RSwkIjQxpXrJdL/9jkZsClBJdaTs91gp4uWpRjy/Ly4%3D''', chmod +x /home/ltuser/scripts/martian]
+
+pre:
+  # 1. Download entire Kane AI test suite as a zip
+  - |
+    curl -X GET \
+    "https://test-manager-api.lambdatest.com/api/test-suites/01KA0GVYFK4DWAA1DQ36543104/export" \
+    -H "Authorization: Basic $AUTH" \
+    -o kane_suite.zip
+  
+  # 2. Unzip suite
+  - unzip kane_suite.zip -d kane-tests
+  
+  # 3. Install dependencies
+  - pip3 install -r kane-tests/requirements.txt
+
+run:
+  # 4. Run entire suite
+  - pytest kane-tests --disable-warnings --maxfail=1
+
+post:
+  # 5. Upload reports for Allure / Extent
+  - cp -r kane-tests/reports $LT_REPORT_DIR
+
 preDirectives:
     commands: []
     maxRetries: 0
@@ -43,8 +65,8 @@ concurrency: 1
 testDiscovery:
     type: raw
     mode: dynamic
-    command: ls | grep test.py
-testRunnerCommand: PYTHONPATH="$(pwd)/$CACHE_DIR:$PYTHONPATH" python3 $test
+    command: "ls | grep test.py"
+testRunnerCommand: 'PYTHONPATH="$(pwd)/$CACHE_DIR:$PYTHONPATH" python3 $test'
 globalTimeout: 90
 testSuiteTimeout: 90
 testSuiteStep: 90
@@ -86,7 +108,7 @@ maxRetriesPreSteps: 0
 triggerMode: false
 sourcePayload:
     platform: projectLink
-    link: https://auteurartefactsprod.blob.core.windows.net/code-export/01K9T433342KQKBQEFGY30KD7X/81b2ac98-9b9a-42b1-af8b-93d8450d84b9/1/selenium/python/hye_Login_to_SauceDemo_TC-73/?st=2025-11-13T06%3A17%3A47Z&se=2025-11-14T06%3A17%3A47Z&sp=rl&sv=2024-05-04&sr=c&sig=PENpnsE3itP5hplSqt91jv2hEB823ntnoC9nbBQnlNQ%3D
+    link: 'https://auteurartefactsprod.blob.core.windows.net/code-export/01K9T433342KQKBQEFGY30KD7X/81b2ac98-9b9a-42b1-af8b-93d8450d84b9/1/selenium/python/hye_Login_to_SauceDemo_TC-73/?st=2025-11-13T06%3A17%3A47Z&se=2025-11-14T06%3A17%3A47Z&sp=rl&sv=2024-05-04&sr=c&sig=PENpnsE3itP5hplSqt91jv2hEB823ntnoC9nbBQnlNQ%3D'
 collectLocalGitData: false
 dynamicAllocation: false
 appium: null
@@ -125,6 +147,6 @@ originalMatrix: {}
 ltOptions: {}
 report: true
 partialReports:
- location: target/surefire-reports/html
- type: html
- frameworkName: extent
+  location: target/surefire-reports/html
+  type: html
+  frameworkName: extent
